@@ -119,7 +119,7 @@ public class PlayerManager {
         return UtilsTime.getTime(secondsLeft, plugin.getMessageManager());
     }
 
-public int getTimeLimitPlayer(Player player) {
+    public int getTimeLimitPlayer(Player player) {
         if (player == null) return 0;
         
         var configManager = plugin.getConfigsManager().getMainConfigManager();
@@ -141,7 +141,7 @@ public int getTimeLimitPlayer(Player player) {
 
             if ((name.equalsIgnoreCase("op") && player.isOp()) || 
                 (player.hasPermission("playertimelimit.limit." + name) && time == 0)) {
-                return 0;
+                return 0; 
             }
 
             if (player.hasPermission("playertimelimit.limit." + name)) {
@@ -153,9 +153,6 @@ public int getTimeLimitPlayer(Player player) {
 
         return (highestTime != -1) ? highestTime : defaultTime;
     }
-
-    return (timeReal > 0) ? timeReal : defaultTime;
-}
 
     public void takeTime(TimeLimitPlayer p, int time) {
         if (p.getPlayer() == null) return;
