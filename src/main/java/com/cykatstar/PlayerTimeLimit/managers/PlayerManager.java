@@ -119,33 +119,39 @@ public class PlayerManager {
         return UtilsTime.getTime(secondsLeft, plugin.getMessageManager());
     }
 
-    public int getTimeLimitPlayer(Player player) {
-    if (player == null) return 0;
-    
-    var configManager = plugin.getConfigsManager().getMainConfigManager();
-    if (configManager == null) return 0;
+public int getTimeLimitPlayer(Player player) {
+        if (player == null) return 0;
+        
+        var configManager = plugin.getConfigsManager().getMainConfigManager();
+        if (configManager == null) return 0;
 
-    var timeLimits = configManager.getTimeLimits();
-    
-    int timeReal = 0; 
-    int defaultTime = 0;
+        var timeLimits = configManager.getTimeLimits();
+        
+        int highestTime = -1; 
+        int defaultTime = 0;
 
-    for (var timeLimit : timeLimits) {
-        String name = timeLimit.getName();
-        int time = timeLimit.getTime();
+        for (var timeLimit : timeLimits) {
+            String name = timeLimit.getName();
+            int time = timeLimit.getTime();
 
-        if (name.equalsIgnoreCase("default")) {
-            defaultTime = time;
-            continue;
+            if (name.equalsIgnoreCase("default")) {
+                defaultTime = time;
+                continue;
+            }
+
+            if ((name.equalsIgnoreCase("op") && player.isOp()) || 
+                (player.hasPermission("playertimelimit.limit." + name) && time == 0)) {
+                return 0;
+            }
+
+            if (player.hasPermission("playertimelimit.limit." + name)) {
+                if (time > highestTime) {
+                    highestTime = time;
+                }
+            }
         }
 
-        if (name.equalsIgnoreCase("op") && player.isOp()) {
-            return time;
-        }
-
-        if (player.hasPermission("playertimelimit.limit." + name)) {
-            timeReal = time; 
-        }
+        return (highestTime != -1) ? highestTime : defaultTime;
     }
 
     return (timeReal > 0) ? timeReal : defaultTime;

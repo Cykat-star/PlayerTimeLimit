@@ -128,14 +128,15 @@ public class PlayerTimeTask {
         
         int remainingTime = timeLimit - p.getCurrentTime();
         String timeString = UtilsTime.getTime(remainingTime, msgManager);
-        String title = msgManager.getBossBarMessage().replace("%time%", timeString);
+        
+        String centeredTitle = "§8[ §b§l" + timeString + " §f§lRemaining §8]";
 
         BossBar bossBar = p.getBossBar();
         if (bossBar == null) {
             try {
                 BarColor color = BarColor.valueOf(bossBarColor.toUpperCase());
                 BarStyle style = BarStyle.valueOf(bossBarStyle.toUpperCase());
-                bossBar = BossBarAPI.create(player, title, color, style);
+                bossBar = BossBarAPI.create(player, centeredTitle, color, style);
                 p.setBossBar(bossBar);
             } catch (IllegalArgumentException e) {
                 plugin.getLogger().warning("Invalid BossBar color or style in config!");
@@ -143,7 +144,7 @@ public class PlayerTimeTask {
             }
         }
 
-        bossBar.setTitle(MessageManager.getColoredMessage(title));
+        bossBar.setTitle(MessageManager.getColoredMessage(centeredTitle));
         
         double ratio = (double) remainingTime / timeLimit;
         bossBar.setProgress(Math.max(0.0, Math.min(1.0, ratio)));
