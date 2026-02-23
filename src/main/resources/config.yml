@@ -1,0 +1,66 @@
+update_notification: true
+
+# Time Limits (in seconds)
+time_limits:
+  default: 3600
+  vip: 7200
+  op: 0
+
+world_whitelist_system:
+  enabled: false
+  worlds:
+    - world
+    - world_nether
+    - world_the_end
+  teleport_coordinates_on_kick: "spawn;0;60;0;90;0"
+
+reset_time: "00:00"
+information_message_enabled_by_default: true
+
+# How often to save data to the Database (in seconds)
+data_save_time: 300 
+
+action_bar: false
+
+boss_bar:
+  enabled: true
+  color: RED
+  style: SEGMENTED_10
+
+# Database Configuration
+# type: MYSQL (Network-wide sync) or SQLite (Local file-based SQL)
+database:
+  type: "SQLite"
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "timelimit_all"
+    username: "root"
+    password: ""
+
+# Notifications sent when reaching specific remaining seconds
+notification:
+  '1800':
+    message:
+      - ''
+      - '&c&lWARNING!'
+      - '&cYou have &730 minutes &cleft to play on the server.'
+      - ''
+  '300':
+    message:
+      - ''
+      - '&c&lWARNING!'
+      - '&cYou have &75 minutes &cleft to play on the server.'
+      - ''
+  '60':
+    message:
+      - ''
+      - '&c&lWARNING!'
+      - '&cYou have &71 minute &cleft to play on the server.'
+      - ''
+  '30':
+    message:
+      - ''
+      - '&c&lWARNING!'
+      - '&cYou have &730 seconds &cleft to play on the server.'
+      - ''

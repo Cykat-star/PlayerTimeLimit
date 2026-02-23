@@ -1,0 +1,38 @@
+name: PlayerTimeLimit
+version: 2.0.0
+main: com.cykatstar.PlayerTimeLimit.PlayerTimeLimit
+api-version: '1.20'
+author: Cykat-star
+description: Standalone player time limit plugin with internal MySQL and H2 support.
+softdepend: [Multiverse-Core, PlaceholderAPI]
+
+commands:
+  playertimelimit:
+    description: Main command of PlayerTimeLimit
+    aliases: [ptl]
+
+permissions:
+  playertimelimit.admin:
+    description: Access to all administrative commands.
+    default: op
+  playertimelimit.command.info:
+    description: Allows checking the time until next reset.
+    default: true
+  playertimelimit.command.message:
+    description: Allows toggling personal time notifications (Action/BossBar).
+    default: true
+  playertimelimit.command.check:
+    description: Allows checking your own or another player's time.
+    default: true
+  playertimelimit.command.resettime:
+    description: Allows manually resetting a player's daily time.
+    default: op
+  playertimelimit.command.addtime:
+    description: Allows adding time to a player's session.
+    default: op
+  playertimelimit.command.taketime:
+    description: Allows removing time from a player's session.
+    default: op
+  playertimelimit.command.reload:
+    description: Allows reloading the plugin configuration.
+    default: op
