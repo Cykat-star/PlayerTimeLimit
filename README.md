@@ -75,7 +75,7 @@ Once the build is successful, navigate to the `/target/` directory. You will see
 1. Place `PlayerTimeLimit.jar` in your `plugins` folder.
 2. **Restart** your server to generate the default configuration.
 3. Choose your database type in `config.yml`:
-    * For **Local**, set `database.type: "H2"`.
+    * For **Local**, set `database.type: "SQLite"`.
     * For **Networks**, set `database.type: "MYSQL"` and enter your credentials.
 4. Run `/ptl reload` to apply changes.
 
