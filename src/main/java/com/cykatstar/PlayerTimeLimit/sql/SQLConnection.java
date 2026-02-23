@@ -43,8 +43,7 @@ public class SQLConnection {
             Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§aInitializing MySQL Connection...");
         } else {
             if (!type.equals("SQLITE")) {
-                Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§c'" + rawType + "' is not a valid database type. Valid options: MySQL, SQLite.");
-                Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§eFalling back to SQLite for this session. Config file remains unchanged.");
+                Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§c'" + rawType + "' is not a valid database type. Falling back to SQLite.");
             }
 
             File dataFolder = new File(plugin.getDataFolder(), "playerdata");
@@ -55,43 +54,26 @@ public class SQLConnection {
             String path = dataFolder.getAbsolutePath() + File.separator + "database";
             config.setJdbcUrl("jdbc:sqlite:" + path + ".db");
             config.setDriverClassName("org.sqlite.JDBC");
-            
             config.setMaximumPoolSize(2); 
-            
-            Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§aUsing SQLite Local Database.");
         }
 
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        
-        config.setMinimumIdle(1);
         config.setPoolName("PTL-Pool");
 
         try {
             this.dataSource = new HikariDataSource(config);
-            Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§aDatabase connection established successfully.");
         } catch (Exception e) {
-            Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§c§lCRITICAL DATABASE ERROR:");
-            Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§cCould not connect to the database. Verify your credentials/drivers.");
-            Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§4§lPLUGIN IS NOW DISABLED TO PREVENT DATA LOSS.");
-            
+            Bukkit.getConsoleSender().sendMessage(PlayerTimeLimit.pluginPrefix + "§cCritical Database Error. Disabling plugin.");
             e.printStackTrace();
-            
             Bukkit.getPluginManager().disablePlugin(plugin);
         }
     }
 
     public Connection getConnection() throws SQLException {
-        if (dataSource == null || dataSource.isClosed()) {
-            throw new SQLException("DataSource is null or closed.");
-        }
+        if (dataSource == null || dataSource.isClosed()) throw new SQLException("DataSource closed.");
         return dataSource.getConnection();
     }
 
     public void disconnect() {
-        if (dataSource != null && !dataSource.isClosed()) {
-            dataSource.close();
-        }
+        if (dataSource != null && !dataSource.isClosed()) dataSource.close();
     }
 }

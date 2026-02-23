@@ -40,7 +40,7 @@ public class PlayerTimeLimit extends JavaPlugin {
         this.configsManager.onEnable();
 
         this.sqlConnection = new SQLConnection(this);
-        this.sqlRepo = new PlayerSQLRepository(this, sqlConnection);
+        this.sqlRepo = new PlayerSQLRepository(sqlConnection);
 
         this.playerManager = new PlayerManager(this, sqlRepo);
         this.serverManager = new ServerManager(this);
