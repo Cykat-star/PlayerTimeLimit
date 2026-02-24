@@ -35,7 +35,7 @@ This fork was developed to solve critical scaling and networking limitations whi
 ## 🚀 Key Features
 
 * **Hybrid Database Engine**
-    * **Local Mode (H2):** High-speed SQL storage for single servers. No external setup required. Data is stored in `plugins/PlayerTimeLimit/playerdata/`.
+    * **Local Mode (SQLite):** High-speed SQL storage for single servers. No external setup required. Data is stored in `plugins/PlayerTimeLimit/playerdata/`.
     * **Network Mode (MySQL):** Perfect for multi-server networks (BungeeCord & Velocity compatible).
 * **Smart HUD Integration:** Real-time **ActionBar** or **BossBar** notifications with player toggles.
 * **Dynamic Limits:** Assign unique daily limits via Vault groups or permissions.
@@ -63,7 +63,7 @@ Once the build is successful, navigate to the `/target/` directory. You will see
 
 | File Name | Description | Use this? |
 | :--- | :--- | :--- |
-| **`PlayerTimeLimit-2.0.0.jar`** | **Shaded/Fat JAR.** Contains all database drivers (MySQL/H2). | ✅ **YES** |
+| **`PlayerTimeLimit-2.0.0.jar`** | **Shaded/Fat JAR.** Contains all database drivers (MySQL/SQLite. | ✅ **YES** |
 | `original-PlayerTimeLimit-2.0.0.jar` | Lightweight JAR. Contains only your, no drivers. | ❌ **NO** |
 
 > **Note:** If you use the `original` version, the plugin will crash with a `ClassNotFoundException` because it won't be able to find the SQL libraries.
